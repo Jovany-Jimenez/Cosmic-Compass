@@ -10,8 +10,9 @@ interface DateSelectorProps {
 const DateSelector: React.FC<DateSelectorProps> = ({ selectedDate, onDateChange, disabled = false }) => {
     const dates: Date[] = [];
     const today = new Date();
-    // Generate a range of dates around today for selection.
-    for (let i = -5; i <= 5; i++) {
+    // Generate a range of dates: past dates + yesterday + today + tomorrow
+    // API supports: past custom dates, YESTERDAY, TODAY, TOMORROW
+    for (let i = -5; i <= 1; i++) {
         const date = new Date();
         date.setDate(today.getDate() + i);
         dates.push(date);
