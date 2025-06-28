@@ -41,4 +41,23 @@ export const fetchHoroscope = async (
         console.error('Error fetching or parsing horoscope from API:', error);
         throw new Error('A cosmic disturbance interfered with the prediction. Please try again.');
     }
+};
+
+export const generateLuckyNumber = (sign: ZodiacSignName, date: string): string => {
+    // Create a deterministic seed from sign and date
+    const input = `${sign.toLowerCase()}-${date}`;
+    
+    // Simple hash function
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+        const char = input.charCodeAt(i);
+        hash = ((hash << 5) - hash) + char;
+        hash = hash & hash; // Convert to 32-bit integer
+    }
+    
+    // Ensure positive number and convert to 4-digit range (1000-9999)
+    const positiveHash = Math.abs(hash);
+    const luckyNumber = (positiveHash % 9000) + 1000;
+    
+    return luckyNumber.toString();
 }; 

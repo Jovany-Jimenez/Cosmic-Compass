@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { ZodiacSign, Period, CachedHoroscopeData } from '../types';
-import { fetchHoroscope } from '../services/horoscopeService.ts';
+import { fetchHoroscope, generateLuckyNumber } from '../services/horoscopeService.ts';
 import Loader from './Loader';
 import ErrorDisplay from './ErrorDisplay';
 import useTextToSpeech from '../hooks/useTextToSpeech';
@@ -144,6 +144,16 @@ const HoroscopeDetail: React.FC<HoroscopeDetailProps> = ({ sign, onBack, selecte
                                 {p}
                             </button>
                         ))}
+                    </div>
+
+                    {/* Lucky Number Section */}
+                    <div className="text-center my-8 sm:my-10">
+                        <h3 className="text-slate-400 text-sm sm:text-base font-medium tracking-widest uppercase mb-4">
+                            Your Lucky Number
+                        </h3>
+                        <div className="text-6xl sm:text-7xl md:text-8xl font-bold text-cyan-400 tracking-wider">
+                            {generateLuckyNumber(sign.name, formatDateForApi(selectedDate))}
+                        </div>
                     </div>
 
                     <div className="min-h-[200px] text-base sm:text-lg leading-relaxed sm:leading-loose">
